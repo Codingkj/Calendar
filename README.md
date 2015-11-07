@@ -1,2 +1,2 @@
 # Calendar
-An enhanced version of the Calendar project
+An enhanced version of the Calendar project, using jQuery features.
