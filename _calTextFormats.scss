@@ -4,7 +4,7 @@ $headfont:4vw "Helvetica Neue", Helvetica, Arial;
 .oldtext{
   margin-left: 2vw;
   margin-bottom: 0;
-  font-size: 1vw;
+  font-size: 1.5vw;
   font-style: italic;
 }
 .headtext {
@@ -28,4 +28,8 @@ $headfont:4vw "Helvetica Neue", Helvetica, Arial;
 }
 #formpage{
   font-size: 1.5vw;
+}
+.calMonth{
+  font: 3vw "Helvetica Neue", Helvetica, Arial; 
+  text-align: center;
 }
