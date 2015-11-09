@@ -4,29 +4,21 @@
   <meta charset="utf-8">
   <title>Calendar</title>
     
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
-
   <script src="http://code.jquery.com/jquery-2.1.4.min.js"> </script>
-
 
 </head>
 <body>
   <script>
-// EXAMPLES OF JQUERY SYNTAX
-  //jquery  $('selector');
-  // $(#'textfield').addClass('exclusive');   //changing class on an element.
-  // $("#test")                           //find items with ID 'test'
-  //$( "<p id='test'>My <em>new</em> text</p>" ).appendTo( "body" ); start here
-    
 
-$(function(){
+$(function(){      //enclose all code in this function 
 
     var days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]; 
     var month= "November"; 
-    var dateselected="";  
+    var dateselected=""; 
+    var dates30= ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30'];
+    //array above to be used to assign numbers to cell values, and initial object keys for storage.
 
   // create the DOM tree
    var divtop=document.createElement('div');
@@ -292,7 +284,6 @@ $(function(){
         secondformheader.setAttribute("class", "headtext2");
         secondformheader.setAttribute("ID","headtext2");
 
-
         var secondtextfield=document.createElement("p");
         secondtextfield.setAttribute("class","oldtext");
         secondtextfield.setAttribute("ID","oldtextId");
@@ -311,11 +302,11 @@ $(function(){
         var removetxt3=document.createTextNode("REMOVE");
         
         var linebr=document.createElement("br");  
+
         editfield.appendChild(secondtxt2);
         removefield.appendChild(removetxt3);
-    
-         secondtaskform.appendChild(secondformheader);
-         secondtaskform.appendChild(linebr);
+        secondtaskform.appendChild(secondformheader);
+        secondtaskform.appendChild(linebr); 
         secondtaskform.appendChild(linebr);
         secondtaskform.appendChild(secondtextfield);
         secondtaskform.appendChild(linebr);
@@ -343,57 +334,53 @@ $(function(){
 
 $( "#grid" ).click(function(){
     dateselected=event.target.textContent;
-
+      //  if ($('event.target').hasClass('cellformat')){
         //check if date has no entry in object choose form1 else form 2
-        if (taskEntries[dateselected] === ""){
-          $('#entireDiv').addClass("visible").removeClass("hidden");  //show the right form
-          $('p.headtext').text([dateselected]+" November 2015");      
-          $('#'+ dateselected).css("background-color", "aqua");
-          }
-        else {
-    //make second form visible
-         $('#secondDiv').removeClass("hidden").addClass("visible");
-         $('#headtext2').text([dateselected]+" November 2015");
-         $('#oldtextId').text(taskEntries[dateselected]); 
-        } 
+            if (taskEntries[dateselected] === ""){
+              $('#entireDiv').addClass("visible").removeClass("hidden");  //show the right form
+              $('p.headtext').text([dateselected]+" November 2015");      
+              $('#'+ dateselected).addClass("shaded");
+              }
+            else {
+        //make second form visible
+             $('#secondDiv').removeClass("hidden").addClass("visible");
+             $('#headtext2').text([dateselected]+" November 2015");
+             $('#oldtextId').text(taskEntries[dateselected]);   //put text in from the object taskEntries
+            } 
+     //   }
   });      
 
   //****SAVE/SUBMIT BUTTON
-
 $( "#submitbutton" ).click(function(){
     event.preventDefault(); 
     event.stopPropagation();
 //write the results    
-        var textEntered=document.getElementById("taskWords").value;  //works
-       // var textEntered=$('#taskWords').val;
+        //var textEntered=document.getElementById("taskWords").value;  //works
+        var textEntered=$('textarea').val(); 
+
+        console.log(textEntered);
         taskEntries[dateselected]=textEntered;
-      
+        console.log(taskEntries);
         if (textEntered===""){
           alert('Hey, enter something before you save - or press Cancel');   
         }
-        if (taskEntries[dateselected] !== "") {
-    // if there was something entered, change shading.
+        if (taskEntries[dateselected] !== "") {       // if there is an entry, change shading.
             $('#'+ dateselected).css("background-color", "aqua");
         }
-    //empty the textbox
-         console.log("textfieldvalue from submit button is..",textfield.value);
-         textfield.value="";
-        // $('textarea').text("");
-    // change the dateselected back to nothing
-       dateselected="";
-       //make the form invisible 
-       //var changeformdiv = document.getElementById("entireDiv").className="form1 hidden";
-       $('#entireDiv').addClass("hidden").removeClass("visible");
+        
+        textfield.value="";           //empty the textbox  
+        dateselected="";              // change the dateselected back to nothing
+       $('#entireDiv').addClass("hidden").removeClass("visible");    //hide form
       });  
 
 //***** CANCEL BUTTON
 $( "#cancelbutton" ).click(function(){
     event.preventDefault(); 
-    event.stopPropagation();   //empty the textfield
-        textfield.value="";
-                              
+    event.stopPropagation();   
+    
+    textfield.value="";                            //empty the textfield                         
     $('#entireDiv').addClass("hidden").removeClass("visible"); // hide the form                          
-    $('#'+ dateselected).css("background-color", "none");    //return the highlighting off  
+    $('#'+ dateselected).css("background-color", "white");    //return the highlighting off  
     dateselected="";       //reset the date selected
   });    
 
@@ -401,7 +388,6 @@ $( "#cancelbutton" ).click(function(){
 $( "#closebutton" ).click(function(){
     event.preventDefault(); 
     event.stopPropagation();
-   
     //cancel form = delete text, turn to hidden, and empty textbox
         taskEntries.dateselected="";  
         $('#secondDiv').addClass("hidden").removeClass("visible"); 
@@ -425,8 +411,8 @@ $( "#closebutton" ).click(function(){
 $( "#removebutton" ).click(function(){
     event.preventDefault(); 
     event.stopPropagation();
-    
-     $('#'+ dateselected).css("background-color", "none");   //remove shading on main form  
+     console.log("Date selected is now:",dateselected);
+     $('#'+ dateselected).css("background-color", "white");   //remove shading on main form  
      taskEntries[dateselected]="";                     // change the current date entry to empty string
      $('#secondDiv').addClass("hidden").removeClass("visible");    //change form 2 to be hidden.
   });       
@@ -435,6 +421,5 @@ $( "#removebutton" ).click(function(){
 });
 
   </script>
-
 </body>
 </html>
