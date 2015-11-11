@@ -23,15 +23,15 @@ $(function(){      //enclose all code in this function
 
 
   // create the Opening Page
-   var frag = document.createDocumentFragment();
+ //  var frag = document.createDocumentFragment();
 
     //$('#calMonth').text("November 2015");
-    var divtop= $('<div></div>').addClass("overallpage");
-    var headx =$('<p></p>').addClass("calMonth").attr("id","calMonth").text("November 2015");
-    $('frag').append(divtop);
-    $('frag').append(headx);
-    $('body').append(frag);
-    console.log(headx);
+    $divtop= $('<div></div>').addClass("overallpage");
+    $headx =$('<p></p>').addClass("calMonth").text("November 2015"); //attr("id","calMonth")
+   // $('frag').append(divtop);
+   // $('frag').append(headx);
+   /// $('body').append(frag);
+   // console.log(headx);
   
   //var divtop = document.createElement('div');
  //   divtop.setAttribute("class","overallpage");
@@ -46,8 +46,8 @@ $(function(){      //enclose all code in this function
 
   //var table1 = $('div').add("table").attr("id","grid");  //or
     var table1=document.createElement("table");  
-  //  table1.setAttribute("id","grid");
-  //  divtop.appendChild(table1);
+     table1.setAttribute("id","grid");
+
     console.log("table1 is now..", table1);
 
     var row1  = table1.insertRow(0);
@@ -251,81 +251,26 @@ $(function(){      //enclose all code in this function
     cell42.innerHTML = "29";
     cell43.innerHTML = "30";
   
-    //document.body.appendChild(frag);   //add tree to page.
-    //var alldates=document.getElementsByClassName("cellformat");  //returns NodeList 
-  
     //CREATE THE FORMS
-
-   // var divtop= $('<div></div>').addClass("overallpage");
-   
-    var formdiv=$('<div></div>').addClass("hidden").attr("id","entireDiv");
-    var taskform = $('<form [id=taskform]></form>');
-    var formheader=$('<p [id=headtext]></p>');
-    var submitfield=$('<button [id=submitbutton]></button>').text('SAVE');
-    var cancelfield=$('<button></button>').attr("id","cancelbutton").text("CANCEL");
-    var textfield=$('<textarea>[id=taskWords]</textarea>').attr("form","taskform").attr("name","textfieldname").addClass("textbox");
-
-    $('formheader').
-    $('#headertext').text("jibberish");
-    $('#taskform').append('p');
-    $('#taskform').append("taskWords");
-    $('#taskform').append("submitbutton");
-    $('#taskform').append("cancelbutton");
-    $('#formDiv').append("taskform");
-    $('body').append("#entireDiv");
-
-    
-   //$('div').add("form").attr("id","formpage"); - replaced by taskform
-   // $('form').add('p').addClass("headtext").text="placeholder";
-  //  $('form').add('button').attr("type","button").attr("id","cancelbutton").text="CANCEL";
-   // $('form').add('button').attr("id","submitbutton").text="SAVE";
+    //***  FORM 1
+    $formdiv=$('<div></div>');  // 
+    $formdiv.addClass("hidden").attr("ID","entireDiv");
+    $taskform = $('<form></form>'); 
+    $taskform.attr("id","taskform");
+    $textfield=$('<textarea></textarea>');
+    $textfield.attr("id","taskWords").addClass("textbox").attr("name","textfieldname");
+    $formheader=$("<p></p>").addClass("headtext");  //
+    $submitfield=$('<button>SAVE</button>'); 
+    $submitfield.attr("type","button").attr("id","submitbutton");
+    $cancelfield=$('<button>CANCEL</button>'); 
+    $cancelfield.attr("type","button").attr("id","cancelbutton");
+    $space=$('<br></br>');
+ 
+    $taskform.append($formheader).append($textfield);
+    $taskform.append($space).append($submitfield).append($cancelfield);;
   
-   //   var submitfield=document.createElement("button");
-      
-   // $("body").append(frag2);
-        
-     //   var formdiv=document.createElement('div');
-    //    formdiv.setAttribute("class","hidden");
-    //    formdiv.setAttribute("ID","entireDiv");
-
-     //  var taskform = document.createElement('form'); 
-     //   taskform.setAttribute("ID","formpage");
-    
-     //   var formheader=document.createElement("p");
-    //    formheader.textContent=" placeholder";
-    //    formheader.setAttribute("class","headtext");
-
-    
-     //var textfield=$('form').add("textarea").attr("form","formpage").attr("id","taskWords").attr("name","textfieldname").addClass("textbox");
-
-     //   textfield.setAttribute("form","formpage");
-     //   textfield.setAttribute("ID","taskWords");
-     //   textfield.setAttribute("name","textfieldname");
-     //   textfield.setAttribute("class","textbox");
-     
-    //$('form').add('button').attr("type","button").attr("id","cancelbutton").text="CANCEL";
-
-     //   var cancelfield=document.createElement("button");
-     //   cancelfield.setAttribute("type","button");
-     //   cancelfield.setAttribute("ID","cancelbutton")
-     //   var txt2=document.createTextNode("CANCEL");
-     //   cancelfield.appendChild(txt2);
-
-   // $('form').add('button').attr("id","submitbutton").text="SAVE";
-  //    var submitfield=document.createElement("button");
-     //   submitfield.setAttribute("ID","submitbutton")
-     //   var txt1=document.createTextNode("SAVE");
-     //   submitfield.appendChild(txt1);
-        
-      //  var linebr=document.createElement("br");
-      //  taskform.appendChild(formheader);
-      //  taskform.appendChild(textfield);
-      //  taskform.appendChild(linebr);
-      //  taskform.appendChild(linebr);
-      //  taskform.appendChild(submitfield);
-      //  taskform.appendChild(cancelfield);
-      //  formdiv.appendChild(taskform);
-      //  document.body.appendChild(frag2);    
+    $formdiv.append($taskform);
+    $('body').append($formdiv);
  
  //Second Form
         var secondformdiv=document.createElement('div');
@@ -388,15 +333,15 @@ $(function(){      //enclose all code in this function
   for (var x=0;x<31;x++){
       taskEntries[x]="";}
 
-
-$( "#grid" ).on("click",function(){
+$( "#grid" ).click(function(){
             dateselected=event.target.textContent;
       //  if ($('event.target').hasClass('cellformat')){
         //check if date has no entry in object choose form1 else form 2
+        console.log("got that click");
             if (taskEntries[dateselected] === ""){
-              $('#entireDiv').addClass("visible").removeClass("hidden");  //show the right form
+              $formdiv.addClass("visible").removeClass("hidden");  //show the right form
               $('p.headtext').text([dateselected]+" November 2015");      
-              $('#'+ dateselected).addClass("shaded");
+         //     $('#dateselected').addClass("shaded");   //check this row//
               }
             else {
         //make second form visible
@@ -408,13 +353,15 @@ $( "#grid" ).on("click",function(){
   });      
 
   //****SAVE/SUBMIT BUTTON
-$( "#submitbutton" ).on("click",function(){
+$('#submitbutton').click(function(){
     event.preventDefault(); 
-    event.stopPropagation();
-//write the results    
-        //var textEntered=document.getElementById("taskWords").value;  //works
+   event.stopPropagation();
+
+        console.log("textarea is...", $textfield);
         var textEntered=$('textarea').val(); 
+        
         taskEntries[dateselected]=textEntered;
+        console.log("And the storage array is",taskEntries);
     
         if (textEntered===""){
           alert('Hey, enter something before you save - or press Cancel');   
@@ -423,24 +370,24 @@ $( "#submitbutton" ).on("click",function(){
             $('#'+ dateselected).css("background-color", "aqua");
         }
         
-        textfield.value="";           //empty the textbox  
+        $('#taskWords').val('');           //empty the textbox  
         dateselected="";              // change the dateselected back to nothing
        $('#entireDiv').addClass("hidden").removeClass("visible");    //hide form
       });  
 
 //***** CANCEL BUTTON
-$( "#cancelbutton" ).on("click",function(){
+$( "#cancelbutton" ).click(function(){
     event.preventDefault(); 
     event.stopPropagation();   
     
-    textfield.value="";                            //empty the textfield                         
+    $('#taskWords').val('');                           //empty the textfield                         
     $('#entireDiv').addClass("hidden").removeClass("visible"); // hide the form                          
     $('#'+ dateselected).css("background-color", "white");    //return the highlighting off  
     dateselected="";       //reset the date selected
   });    
 
 //** FORM2 BUTTON CLOSE
-$( "#closebutton" ).on("click",function(){
+$( "#closebutton" ).click(function(){
     event.preventDefault(); 
     event.stopPropagation();
     //cancel form = delete text, turn to hidden, and empty textbox
@@ -451,7 +398,7 @@ $( "#closebutton" ).on("click",function(){
   });    
 
 //*****  FORM2 EDIT BUTTON
-    $( "#editbutton" ).on("click",function(){
+    $( "#editbutton" ).click(function(){
     event.preventDefault();
     event.stopPropagation();   
     $('#entireDiv').addClass("visible").removeClass("hidden"); 
@@ -463,7 +410,7 @@ $( "#closebutton" ).on("click",function(){
   }); 
 
 //**** ReMOVE BUTTON
-$( "#removebutton" ).on("click",function(){
+$( "#removebutton" ).click(function(){
     event.preventDefault(); 
     event.stopPropagation();
      console.log("Date selected is now:",dateselected);
